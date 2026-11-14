@@ -3,6 +3,8 @@
 A browser-based flashcards study app (single-page, no build tools). Built with
 HTML, CSS, and vanilla JavaScript, with data persisted in `localStorage`.
 
+Live demo: https://ai-coding-challenge.onrender.com
+
 This folder is also structured as a Python project (uv) so it can be served
 locally.
 
