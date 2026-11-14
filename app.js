@@ -612,6 +612,10 @@
     };
     const deck = createDeck(sample.name);
     sample.cards.forEach(c => createCard(deck.id, c.front, c.back));
+    state.ui.activeCardIndex = 0;
+    state.ui.shuffledIds = null;
+    state.ui.searchQuery = '';
+    saveState();
     render();
   });
 
