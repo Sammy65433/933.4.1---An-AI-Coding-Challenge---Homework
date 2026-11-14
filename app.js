@@ -106,6 +106,8 @@
     };
     if (!Array.isArray(state.cardsByDeck[deckId])) state.cardsByDeck[deckId] = [];
     state.cardsByDeck[deckId].push(card);
+    state.ui.activeCardIndex = state.cardsByDeck[deckId].length - 1;
+    state.ui.shuffledIds = null;
     saveState();
     return card;
   }

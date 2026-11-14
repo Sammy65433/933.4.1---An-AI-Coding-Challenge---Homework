@@ -150,7 +150,7 @@ button.danger { background: var(--danger); color: #fff; border-color: var(--dang
   box-shadow: var(--shadow);
   text-align: center;
 }
-.card-face p { margin: 0; font-size: 1.15rem; }
+.card-face p { margin: 0; font-size: 1.15rem; word-break: break-word; }
 .card-back { transform: rotateY(180deg); background: var(--bg); }
 
 .card-meta { display: flex; gap: 1rem; color: var(--muted); font-size: 0.9rem; flex-wrap: wrap; justify-content: center; }
