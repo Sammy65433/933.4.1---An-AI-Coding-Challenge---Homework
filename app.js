@@ -223,8 +223,8 @@
 
   function openModal(modal) {
     lastFocus = document.activeElement;
-    modal.hidden = false;
-    modalBackdrop.hidden = false;
+    modal.classList.remove('hidden');
+    modalBackdrop.classList.remove('hidden');
     activeModal = modal;
     const f = getFocusable(modal);
     if (f.length) setTimeout(() => f[0].focus(), 0);
@@ -232,12 +232,11 @@
   }
 
   function closeModal(modal) {
-    modal.hidden = true;
+    modal.classList.add('hidden');
     activeModal = null;
     document.removeEventListener('keydown', modalKeyHandler, true);
-    // hide backdrop if no modal open
-    const anyOpen = [deckModal, cardModal, manageModal, confirmModal, importModal].some(m => !m.hidden);
-    if (!anyOpen) modalBackdrop.hidden = true;
+    const anyOpen = [deckModal, cardModal, manageModal, confirmModal, importModal].some(m => !m.classList.contains('hidden'));
+    if (!anyOpen) modalBackdrop.classList.add('hidden');
     if (lastFocus && typeof lastFocus.focus === 'function') {
       try { lastFocus.focus(); } catch (e) {}
     }
@@ -302,19 +301,25 @@
   function renderDecks() {
     deckList.innerHTML = '';
     if (!state.decks.length) {
-      noDecks.hidden = false;
+      noDecks.classList.remove('hidden');
       return;
     }
-    noDecks.hidden = true;
+    noDecks.classList.add('hidden');
     state.decks.forEach(d => {
+      const active = d.id === state.activeDeckId;
       const li = document.createElement('li');
-      li.className = 'deck-item' + (d.id === state.activeDeckId ? ' active' : '');
       li.dataset.deckId = d.id;
+      li.className = 'flex items-center justify-between gap-2 px-3 py-2 rounded-xl cursor-pointer transition ' +
+        (active
+          ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow'
+          : 'bg-slate-50 dark:bg-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-700');
       li.innerHTML = `
-        <span class="deck-name">🗂️ ${escapeHtml(d.name)}</span>
-        <span class="deck-actions">
-          <button type="button" data-action="edit-deck" data-deck-id="${d.id}" aria-label="Edit deck ${escapeHtml(d.name)}">Edit</button>
-          <button type="button" data-action="delete-deck" data-deck-id="${d.id}" aria-label="Delete deck ${escapeHtml(d.name)}">Del</button>
+        <span class="flex-1 truncate font-medium">🗂️ ${escapeHtml(d.name)}</span>
+        <span class="flex gap-1">
+          <button type="button" data-action="edit-deck" data-deck-id="${d.id}" aria-label="Edit deck ${escapeHtml(d.name)}"
+            class="px-2 py-0.5 rounded-md text-xs ${active ? 'bg-white/20 hover:bg-white/30' : 'bg-slate-200 dark:bg-slate-600 hover:bg-slate-300 dark:hover:bg-slate-500'}">✏️</button>
+          <button type="button" data-action="delete-deck" data-deck-id="${d.id}" aria-label="Delete deck ${escapeHtml(d.name)}"
+            class="px-2 py-0.5 rounded-md text-xs ${active ? 'bg-white/20 hover:bg-white/30' : 'bg-rose-100 text-rose-700 hover:bg-rose-200 dark:bg-rose-900/40 dark:text-rose-300'}">🗑️</button>
         </span>`;
       deckList.appendChild(li);
     });
@@ -324,14 +329,14 @@
     const cards = getStudyCards();
     clampIndex();
     if (!cards.length) {
-      studyArea.hidden = true;
-      emptyCards.hidden = false;
+      studyArea.classList.add('hidden');
+      emptyCards.classList.remove('hidden');
       cardCounter.textContent = '';
       searchCount.textContent = state.ui.searchQuery ? '0 matches' : '';
       return;
     }
-    emptyCards.hidden = true;
-    studyArea.hidden = false;
+    emptyCards.classList.add('hidden');
+    studyArea.classList.remove('hidden');
     const idx = state.ui.activeCardIndex;
     const card = cards[idx];
     cardFront.textContent = card.front;
@@ -346,22 +351,22 @@
     const deck = state.decks.find(d => d.id === state.activeDeckId);
     if (!deck) {
       deckTitle.textContent = 'Select a deck';
-      editDeckBtn.hidden = true;
-      deleteDeckBtn.hidden = true;
-      manageCardsBtn.hidden = true;
-      shuffleBtn.hidden = true;
-      newCardBtn.hidden = true;
-      studyArea.hidden = true;
-      emptyCards.hidden = true;
+      editDeckBtn.classList.add('hidden');
+      deleteDeckBtn.classList.add('hidden');
+      manageCardsBtn.classList.add('hidden');
+      shuffleBtn.classList.add('hidden');
+      newCardBtn.classList.add('hidden');
+      studyArea.classList.add('hidden');
+      emptyCards.classList.add('hidden');
       searchInput.value = state.ui.searchQuery || '';
       return;
     }
     deckTitle.textContent = deck.name;
-    editDeckBtn.hidden = false;
-    deleteDeckBtn.hidden = false;
-    manageCardsBtn.hidden = false;
-    shuffleBtn.hidden = false;
-    newCardBtn.hidden = false;
+    editDeckBtn.classList.remove('hidden');
+    deleteDeckBtn.classList.remove('hidden');
+    manageCardsBtn.classList.remove('hidden');
+    shuffleBtn.classList.remove('hidden');
+    newCardBtn.classList.remove('hidden');
     searchInput.value = state.ui.searchQuery || '';
     renderStudyCard();
   }
@@ -457,16 +462,17 @@
     const cards = state.cardsByDeck[state.activeDeckId] || [];
     manageCardList.innerHTML = '';
     if (!cards.length) {
-      manageCardList.innerHTML = '<li class="empty-state">No cards yet.</li>';
+      manageCardList.innerHTML = '<li class="text-center text-slate-500 dark:text-slate-400 py-4">📭 No cards yet.</li>';
       return;
     }
     cards.forEach(c => {
       const li = document.createElement('li');
+      li.className = 'flex items-center justify-between gap-2 px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-700/50';
       li.innerHTML = `
-        <span class="card-preview"><strong>${escapeHtml(c.front)}</strong> — ${escapeHtml(c.back)}</span>
-        <span class="item-actions">
-          <button type="button" data-action="edit-card" data-card-id="${c.id}">Edit</button>
-          <button type="button" data-action="delete-card" data-card-id="${c.id}">Delete</button>
+        <span class="flex-1 truncate"><strong>${escapeHtml(c.front)}</strong> — ${escapeHtml(c.back)}</span>
+        <span class="flex gap-1">
+          <button type="button" data-action="edit-card" data-card-id="${c.id}" class="px-2 py-0.5 rounded-md text-xs bg-slate-200 dark:bg-slate-600 hover:bg-slate-300 dark:hover:bg-slate-500">✏️</button>
+          <button type="button" data-action="delete-card" data-card-id="${c.id}" class="px-2 py-0.5 rounded-md text-xs bg-rose-100 text-rose-700 hover:bg-rose-200 dark:bg-rose-900/40 dark:text-rose-300">🗑️</button>
         </span>`;
       manageCardList.appendChild(li);
     });
@@ -542,7 +548,7 @@
     }
     if (editingCardId) updateCard(state.activeDeckId, editingCardId, front, back);
     else createCard(state.activeDeckId, front, back);
-    const wasManageOpen = !manageModal.hidden;
+    const wasManageOpen = !manageModal.classList.contains('hidden');
     closeModal(cardModal);
     if (wasManageOpen) renderManageList();
     render();
