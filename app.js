@@ -285,7 +285,7 @@
   // close buttons with data-close
   document.querySelectorAll('[data-close]').forEach(btn => {
     btn.addEventListener('click', () => {
-      const modal = btn.closest('.modal');
+      const modal = btn.closest('[role="dialog"]');
       if (modal) closeModal(modal);
     });
   });
