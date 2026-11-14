@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flashcards Study App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <h1>Flashcards</h1>
+    <div class="header-actions">
+      <button id="newDeckBtn" type="button">New Deck</button>
+      <button id="importBtn" type="button">Import</button>
+      <button id="exportBtn" type="button">Export</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar" aria-label="Decks">
+      <h2>Decks</h2>
+      <ul id="deckList" class="deck-list"></ul>
+      <p id="noDecks" class="empty-state">No decks yet. Create one!</p>
+    </nav>
+
+    <main class="main">
+      <section class="deck-view">
+        <div class="deck-header">
+          <h2 id="deckTitle">Select a deck</h2>
+          <div class="deck-actions">
+            <button id="editDeckBtn" type="button" hidden>Edit Deck</button>
+            <button id="deleteDeckBtn" type="button" hidden>Delete Deck</button>
+            <button id="manageCardsBtn" type="button" hidden>Manage Cards</button>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <input id="searchInput" type="search" placeholder="Search cards..." aria-label="Search cards in active deck">
+          <button id="shuffleBtn" type="button" hidden>Shuffle</button>
+          <button id="newCardBtn" type="button" hidden>New Card</button>
+        </div>
+
+        <div id="studyArea" class="study-area" hidden>
+          <div class="card-container">
+            <div id="studyCard" class="card" tabindex="0" role="button" aria-label="Flashcard. Press Space to flip.">
+              <div class="card-face card-front"><p id="cardFront"></p></div>
+              <div class="card-face card-back"><p id="cardBack"></p></div>
+            </div>
+          </div>
+          <div class="card-meta">
+            <span id="cardCounter" aria-live="polite"></span>
+            <span id="searchCount"></span>
+          </div>
+          <div class="controls">
+            <button id="prevBtn" type="button">Previous</button>
+            <button id="flipBtn" type="button">Flip</button>
+            <button id="nextBtn" type="button">Next</button>
+          </div>
+          <div class="rating-controls" id="ratingControls">
+            <span>Rate:</span>
+            <button type="button" data-rating="again">Again</button>
+            <button type="button" data-rating="good">Good</button>
+            <button type="button" data-rating="easy">Easy</button>
+          </div>
+        </div>
+
+        <div id="emptyCards" class="empty-state" hidden>No cards in this deck. Add one!</div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="app-footer">Shortcuts: Space flip, Left/Right navigate, Enter submit, Esc close.</footer>
+
+  <div id="modalBackdrop" class="modal-backdrop" hidden></div>
+
+  <div id="deckModal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="deckModalTitle">
+    <div class="modal-content">
+      <h3 id="deckModalTitle">New Deck</h3>
+      <form id="deckForm">
+        <label for="deckNameInput">Deck name</label>
+        <input id="deckNameInput" type="text" required autocomplete="off">
+        <div class="modal-actions">
+          <button type="button" data-close>Cancel</button>
+          <button type="submit">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="cardModal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="cardModalTitle">
+    <div class="modal-content">
+      <h3 id="cardModalTitle">New Card</h3>
+      <form id="cardForm">
+        <label for="cardFrontInput">Front</label>
+        <textarea id="cardFrontInput" required rows="3"></textarea>
+        <label for="cardBackInput">Back</label>
+        <textarea id="cardBackInput" required rows="3"></textarea>
+        <div class="modal-actions">
+          <button type="button" data-close>Cancel</button>
+          <button type="submit">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="manageModal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="manageModalTitle">
+    <div class="modal-content wide">
+      <h3 id="manageModalTitle">Manage Cards</h3>
+      <ul id="manageCardList" class="manage-list"></ul>
+      <div class="modal-actions">
+        <button type="button" data-close>Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="confirmModal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+    <div class="modal-content">
+      <h3 id="confirmTitle">Confirm</h3>
+      <p id="confirmMessage"></p>
+      <div class="modal-actions">
+        <button type="button" id="confirmCancel">Cancel</button>
+        <button type="button" id="confirmOk">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="importModal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="importTitle">
+    <div class="modal-content">
+      <h3 id="importTitle">Import Deck JSON</h3>
+      <textarea id="importText" rows="8" placeholder='{"name":"My Deck","cards":[{"front":"Q","back":"A"}]}'></textarea>
+      <div class="modal-actions">
+        <button type="button" data-close>Cancel</button>
+        <button type="button" id="importOk">Import</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

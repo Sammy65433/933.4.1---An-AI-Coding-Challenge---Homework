@@ -1,0 +1,17 @@
+[project]
+name = "flashcards-app"
+version = "0.1.0"
+description = "Browser-based Flashcards Study App (AI coding challenge)."
+readme = "README.md"
+authors = [
+    { name = "Sammy65433", email = "samiamlistening@gmail.com" }
+]
+requires-python = ">=3.15"
+dependencies = []
+
+[project.scripts]
+flashcards = "flashcards_app:main"
+
+[build-system]
+requires = ["uv_build>=0.10.11,<0.11.0"]
+build-backend = "uv_build"
