@@ -311,7 +311,7 @@
       li.className = 'deck-item' + (d.id === state.activeDeckId ? ' active' : '');
       li.dataset.deckId = d.id;
       li.innerHTML = `
-        <span class="deck-name">${escapeHtml(d.name)}</span>
+        <span class="deck-name">🗂️ ${escapeHtml(d.name)}</span>
         <span class="deck-actions">
           <button type="button" data-action="edit-deck" data-deck-id="${d.id}" aria-label="Edit deck ${escapeHtml(d.name)}">Edit</button>
           <button type="button" data-action="delete-deck" data-deck-id="${d.id}" aria-label="Delete deck ${escapeHtml(d.name)}">Del</button>

@@ -8,19 +8,19 @@
 </head>
 <body>
   <header class="app-header">
-    <h1>Flashcards</h1>
+    <h1><span class="logo">📚</span> Flashcards</h1>
     <div class="header-actions">
-      <button id="newDeckBtn" type="button">New Deck</button>
-      <button id="importBtn" type="button">Import</button>
-      <button id="exportBtn" type="button">Export</button>
+      <button id="newDeckBtn" type="button">➕ New Deck</button>
+      <button id="importBtn" type="button">📥 Import</button>
+      <button id="exportBtn" type="button">📤 Export</button>
     </div>
   </header>
 
   <div class="layout">
     <nav class="sidebar" aria-label="Decks">
-      <h2>Decks</h2>
+      <h2>🗂️ Decks</h2>
       <ul id="deckList" class="deck-list"></ul>
-      <p id="noDecks" class="empty-state">No decks yet. Create one!</p>
+      <p id="noDecks" class="empty-state">📭 No decks yet. Create one!</p>
     </nav>
 
     <main class="main">
@@ -35,9 +35,9 @@
         </div>
 
         <div class="toolbar">
-          <input id="searchInput" type="search" placeholder="Search cards..." aria-label="Search cards in active deck">
-          <button id="shuffleBtn" type="button" hidden>Shuffle</button>
-          <button id="newCardBtn" type="button" hidden>New Card</button>
+          <input id="searchInput" type="search" placeholder="🔍 Search cards..." aria-label="Search cards in active deck">
+          <button id="shuffleBtn" type="button" hidden>🔀 Shuffle</button>
+          <button id="newCardBtn" type="button" hidden>➕ New Card</button>
         </div>
 
         <div id="studyArea" class="study-area" hidden>
@@ -52,19 +52,19 @@
             <span id="searchCount"></span>
           </div>
           <div class="controls">
-            <button id="prevBtn" type="button">Previous</button>
-            <button id="flipBtn" type="button">Flip</button>
-            <button id="nextBtn" type="button">Next</button>
+            <button id="prevBtn" type="button">⬅️ Previous</button>
+            <button id="flipBtn" type="button">🔄 Flip</button>
+            <button id="nextBtn" type="button">Next ➡️</button>
           </div>
           <div class="rating-controls" id="ratingControls">
             <span>Rate:</span>
-            <button type="button" data-rating="again">Again</button>
-            <button type="button" data-rating="good">Good</button>
-            <button type="button" data-rating="easy">Easy</button>
+            <button type="button" data-rating="again">🔁 Again</button>
+            <button type="button" data-rating="good">✅ Good</button>
+            <button type="button" data-rating="easy">⭐ Easy</button>
           </div>
         </div>
 
-        <div id="emptyCards" class="empty-state" hidden>No cards in this deck. Add one!</div>
+        <div id="emptyCards" class="empty-state" hidden>📭 No cards in this deck. Add one!</div>
       </section>
     </main>
   </div>
@@ -80,8 +80,8 @@
         <label for="deckNameInput">Deck name</label>
         <input id="deckNameInput" type="text" required autocomplete="off">
         <div class="modal-actions">
-          <button type="button" data-close>Cancel</button>
-          <button type="submit">Save</button>
+          <button type="button" data-close>❌ Cancel</button>
+          <button type="submit">✅ Save</button>
         </div>
       </form>
     </div>
@@ -96,8 +96,8 @@
         <label for="cardBackInput">Back</label>
         <textarea id="cardBackInput" required rows="3"></textarea>
         <div class="modal-actions">
-          <button type="button" data-close>Cancel</button>
-          <button type="submit">Save</button>
+          <button type="button" data-close>❌ Cancel</button>
+          <button type="submit">✅ Save</button>
         </div>
       </form>
     </div>
@@ -108,7 +108,7 @@
       <h3 id="manageModalTitle">Manage Cards</h3>
       <ul id="manageCardList" class="manage-list"></ul>
       <div class="modal-actions">
-        <button type="button" data-close>Close</button>
+        <button type="button" data-close>✖️ Close</button>
       </div>
     </div>
   </div>
@@ -118,8 +118,8 @@
       <h3 id="confirmTitle">Confirm</h3>
       <p id="confirmMessage"></p>
       <div class="modal-actions">
-        <button type="button" id="confirmCancel">Cancel</button>
-        <button type="button" id="confirmOk">Delete</button>
+        <button type="button" id="confirmCancel">❌ Cancel</button>
+        <button type="button" id="confirmOk">🗑️ Delete</button>
       </div>
     </div>
   </div>
@@ -129,8 +129,8 @@
       <h3 id="importTitle">Import Deck JSON</h3>
       <textarea id="importText" rows="8" placeholder='{"name":"My Deck","cards":[{"front":"Q","back":"A"}]}'></textarea>
       <div class="modal-actions">
-        <button type="button" data-close>Cancel</button>
-        <button type="button" id="importOk">Import</button>
+        <button type="button" data-close>❌ Cancel</button>
+        <button type="button" id="importOk">📥 Import</button>
       </div>
     </div>
   </div>

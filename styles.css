@@ -45,13 +45,22 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem 1.25rem;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: #fff;
+  border-bottom: none;
   box-shadow: var(--shadow);
   position: sticky;
   top: 0;
   z-index: 10;
 }
+.app-header h1 { color: #fff; }
+.app-header .logo { margin-right: 0.4rem; }
+.app-header button {
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+  border-color: rgba(255,255,255,0.35);
+}
+.app-header button:hover { background: rgba(255,255,255,0.28); }
 .app-header h1 { margin: 0; font-size: 1.25rem; }
 .header-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
 
@@ -63,14 +72,14 @@ button {
   color: var(--text);
   padding: 0.45rem 0.85rem;
   border-radius: 8px;
-  transition: background 0.15s, transform 0.05s;
+  transition: background 0.15s, transform 0.05s, box-shadow 0.15s;
 }
-button:hover { background: var(--bg); }
+button:hover { background: var(--bg); box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
 button:active { transform: translateY(1px); }
 button.primary, .modal-actions button[type="submit"], .modal-actions #confirmOk, .modal-actions #importOk {
-  background: var(--primary);
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
   color: var(--primary-contrast);
-  border-color: var(--primary);
+  border-color: transparent;
 }
 button.danger { background: var(--danger); color: #fff; border-color: var(--danger); }
 
@@ -114,7 +123,8 @@ button.danger { background: var(--danger); color: #fff; border-color: var(--dang
 .deck-actions { display: flex; gap: 0.25rem; }
 .deck-actions button { padding: 0.2rem 0.45rem; font-size: 0.75rem; }
 
-.empty-state { color: var(--muted); font-size: 0.9rem; text-align: center; padding: 1rem 0; }
+.empty-state { color: var(--muted); font-size: 0.95rem; text-align: center; padding: 1.25rem 0; }
+.empty-state::first-line { font-size: 1.4rem; }
 
 .main { min-width: 0; }
 .deck-view { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; box-shadow: var(--shadow); }
@@ -145,10 +155,14 @@ button.danger { background: var(--danger); color: #fff; border-color: var(--dang
   justify-content: center;
   padding: 1.25rem;
   border-radius: var(--radius);
-  background: var(--surface);
+  background: linear-gradient(135deg, var(--surface), var(--bg));
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
   text-align: center;
+}
+.card-back { background: linear-gradient(135deg, #ede9fe, #e0e7ff); }
+@media (prefers-color-scheme: dark) {
+  .card-back { background: linear-gradient(135deg, #312e81, #1e3a8a); color: #e2e8f0; }
 }
 .card-face p { margin: 0; font-size: 1.15rem; word-break: break-word; }
 .card-back { transform: rotateY(180deg); background: var(--bg); }
