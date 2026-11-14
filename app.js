@@ -594,6 +594,27 @@
     render();
   });
 
+  document.getElementById('sampleBtn').addEventListener('click', () => {
+    const sample = {
+      name: 'Sample: Programming Basics',
+      cards: [
+        { front: 'What does HTML stand for?', back: 'HyperText Markup Language' },
+        { front: 'What does CSS stand for?', back: 'Cascading Style Sheets' },
+        { front: 'What is the DOM?', back: 'Document Object Model — a tree representation of an HTML document' },
+        { front: 'How do you declare a constant in JavaScript?', back: 'const name = value;' },
+        { front: 'What is LocalStorage?', back: 'A browser API for storing key/value strings persistently per origin' },
+        { front: 'What is a closure?', back: 'A function that remembers variables from its outer scope' },
+        { front: 'What does JSON stand for?', back: 'JavaScript Object Notation' },
+        { front: 'What is semantic HTML?', back: 'Using elements that convey meaning (header, nav, main, article, etc.)' },
+        { front: 'What is accessibility (a11y)?', back: 'Designing apps usable by people with disabilities' },
+        { front: 'What is a pure function?', back: 'A function with no side effects; same output for same input' },
+      ],
+    };
+    const deck = createDeck(sample.name);
+    sample.cards.forEach(c => createCard(deck.id, c.front, c.back));
+    render();
+  });
+
   document.getElementById('exportBtn').addEventListener('click', () => {
     const deck = state.decks.find(d => d.id === state.activeDeckId);
     if (!deck) { alert('Select a deck to export.'); return; }
